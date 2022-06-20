@@ -1,0 +1,59 @@
+getgenv().autoLayout = false
+getgenv().autoRebirth = false
+
+
+
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/IreXion-UI-Library/main/IreXion%20UI%20Library"))()
+
+local Gui = Library:AddGui({
+Title = {"hyper", " miner haven farm"},
+ThemeColor = Color3.fromRGB(0, 255, 255),
+ToggleKey = Enum.KeyCode.RightShift,
+})
+
+local Tab = Gui:AddTab("auto farm")
+
+local Category = Tab:AddCategory("rebirthin")
+
+
+
+local Toggle = Category:AddToggle("Layout Loader (set to first)", false, function(toggle)
+	print('layout doing')
+	getgenv().autoLayout = toggle
+	if toggle then
+		doLayout()
+	end
+end)
+
+local Toggle = Category:AddToggle("Auto Rebirth", false, function(toggle)
+	print('rebirthing')
+	getgenv().autoRebirth = toggle
+	if toggle then
+		doRebirth()
+	end
+end)
+
+--LAYOUT LOADER
+function doLayout()
+	spawn(function()
+		while autoRebirth == true do
+			local args = {
+				[1] = "Load",
+				[2] = "Layout1"
+			}
+			game:GetService("ReplicatedStorage").Layouts:InvokeServer(unpack(args))
+			wait(0.01)
+		end
+	end)
+end
+
+--AUTO REBIRTH
+function doRebirth()
+	spawn(function()
+		while autoRebirth == true do
+			game:GetService("ReplicatedStorage").Rebirth:InvokeServer()
+			wait(0.01)
+		end
+	end)
+end
