@@ -1,0 +1,23 @@
+--LAYOUT LOADER
+function doLayout()
+	spawn(function()
+		while autoRebirth == true do
+			local args = {
+				[1] = "Load",
+				[2] = "Layout1"
+			}
+			game:GetService("ReplicatedStorage").Layouts:InvokeServer(unpack(args))
+			wait(0.01)
+		end
+	end)
+end
+
+--AUTO REBIRTH
+function doRebirth()
+	spawn(function()
+		while autoRebirth == true do
+			game:GetService("ReplicatedStorage").Rebirth:InvokeServer()
+			wait(0.01)
+		end
+	end)
+end
